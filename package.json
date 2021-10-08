@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm-run-all -p \"build:watch\" \"server:open\"",
-    "server:open": "serve demo",
+    "server:open": "serve .",
     "build": "rollup -c",
     "build:watch": "rollup -c -w"
   },
