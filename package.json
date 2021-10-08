@@ -1,0 +1,24 @@
+{
+  "name": "event-js",
+  "version": "1.0.0",
+  "main": "dist/event-js.cjs.js",
+  "module": "dist/event-js.esm.js",
+  "browser": "dist/event-js.umd.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm-run-all -p \"build:watch\" \"server:open\"",
+    "server:open": "serve demo",
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^2.58.0",
+    "serve": "^12.0.1"
+  },
+  "files": [
+    "dist"
+  ]
+}
