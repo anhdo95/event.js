@@ -1,24 +1,31 @@
 {
   "name": "event-js",
   "version": "1.0.0",
-  "main": "dist/event-js.cjs.js",
-  "module": "dist/event-js.esm.js",
-  "browser": "dist/event-js.umd.js",
+  "main": "dist/event-js.js",
+  "module": "dist/event-js.mjs",
+  "typings": "dist/event-js.d.ts",
   "license": "MIT",
   "scripts": {
     "start": "npm-run-all -p \"build:watch\" \"server:open\"",
-    "server:open": "serve .",
-    "build": "rollup -c",
-    "build:watch": "rollup -c -w"
+    "serve": "webpack serve --config webpack.dev.config.js",
+    "build:dev": "webpack --config webpack.dev.config.js",
+    "build": "webpack --config webpack.prod.config.js",
+    "build:watch": "webpack --mode development -w"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.3.2",
     "npm-run-all": "^4.1.5",
-    "rollup": "^2.58.0",
-    "serve": "^12.0.1"
+    "serve": "^12.0.1",
+    "typescript": "^4.4.3",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0",
+    "webpack-dev-server": "^4.3.1"
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "ts-loader": "^9.2.6"
+  }
 }
