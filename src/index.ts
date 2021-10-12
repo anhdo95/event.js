@@ -1,5 +1,6 @@
 import { EventHandler, Events, EventType } from './types'
 import { isFunction, isString, isUndefined } from './utils'
+import CustomEvent from './custom-event'
 
 class EventJS {
   private _events: Events
@@ -8,7 +9,7 @@ class EventJS {
     this._events = {}
   }
 
-  once(type: EventType, handler: EventHandler) {
+  once(type: EventType, handler?: EventHandler) {
     if (!isString(type) || !isFunction(handler)) return this
 
     const listener = (...args: Parameters<EventHandler>) => {
@@ -20,10 +21,10 @@ class EventJS {
     return this
   }
 
-  on(type: EventType, handler: EventHandler) {
-    if (!isString(type) || !isFunction(handler)) return this
+  on(event: EventType, handler: EventHandler): EventJS {
+    if (!isString(event) || !isFunction(handler)) return this
 
-    this._events[type] = (this._events[type] || []).concat(handler)
+    this._events[event] = (this._events[event] || []).concat(handler)
     return this
   }
 
@@ -56,16 +57,24 @@ class EventJS {
     return type in this._events
   }
 
-  trigger(type: EventType, ...params: any[]) {
+  trigger(event: EventType | CustomEvent, ...params: any[]) {
+    const eventType = event instanceof CustomEvent ? event.type : event
+
     if (
-      !(type in this._events) ||
-      !Array.isArray(this._events[type]) ||
-      !this._events[type].length
+      !(eventType in this._events) ||
+      !Array.isArray(this._events[eventType]) ||
+      !this._events[eventType].length
     ) {
       return this
     }
 
-    this._events[type].forEach((handler) => handler(...params))
+    if (event instanceof CustomEvent) {
+      event.currentTarget = this
+      this._events[eventType].forEach((handler) => handler(event))
+    } else {
+      this._events[eventType].forEach((handler) => handler(...params))
+    }
+
     return this
   }
 }
