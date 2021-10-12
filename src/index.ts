@@ -56,7 +56,7 @@ class EventJS {
     return type in this._events
   }
 
-  trigger(type: EventType) {
+  trigger(type: EventType, ...params: any[]) {
     if (
       !(type in this._events) ||
       !Array.isArray(this._events[type]) ||
@@ -65,7 +65,7 @@ class EventJS {
       return this
     }
 
-    this._events[type].forEach((handler) => handler())
+    this._events[type].forEach((handler) => handler(...params))
     return this
   }
 }

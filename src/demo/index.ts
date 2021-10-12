@@ -2,20 +2,26 @@ import EventJS from '../index'
 
 const eventJs = new EventJS()
 
-const handleScroll = () => console.log('Scroll!')
+const handleClick = () => {
+  console.log('Click!')
+}
+
+const handleScroll = ({ offsetTop }: { offsetTop: number }) => {
+  console.log(`offsetTop`, offsetTop)
+}
 
 eventJs
-  .on('click', () => console.log('Click!'))
-  .on('scroll', () => handleScroll)
+  .on('click', handleClick)
+  .on('scroll', handleScroll)
   .once('mouseup', () => console.log('Mouse up!'))
   .once('mouseup', () => console.log('Mouse up again!'))
 
 const dispatch = () => {
   eventJs
-    .off('scroll', handleScroll)
+    .off('click', handleClick)
     .trigger('click')
     .trigger('click')
-    .trigger('scroll')
+    .trigger('scroll', { offsetTop: 100 })
     .trigger('mouseup')
     .trigger('mouseup')
 
