@@ -52,6 +52,10 @@ class EventJS {
     return this
   }
 
+  has(type: EventType) {
+    return type in this._events
+  }
+
   trigger(type: EventType) {
     if (
       !(type in this._events) ||

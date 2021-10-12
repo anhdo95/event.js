@@ -19,7 +19,8 @@ const dispatch = () => {
     .trigger('mouseup')
     .trigger('mouseup')
 
-  console.log(`eventJs`, eventJs)
+  console.log(`has('click')`, eventJs.has('click'))
+  console.log(`has('mousedown')`, eventJs.has('mousedown'))
 }
 
 dispatch()
